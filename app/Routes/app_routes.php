@@ -4,21 +4,31 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 
 use Slim\Exception\HttpNotFoundException;
 use Vanier\Api\Controllers\AboutController;
+use Vanier\Api\Controllers\CustomersController;
+use Vanier\Api\Controllers\ActorsController;
 use Vanier\Api\Controllers\FilmsController;
 
-// Import the app instance into this file's scope.
 global $app;
 
-// NOTE: Add your app routes here.
-// The callbacks must be implemented in a controller class.
-// The Vanier\Api must be used as namespace prefix. 
-
-// ROUTE: GET /
 $app->get('/', [AboutController::class, 'handleAboutApi']); 
 
-// ROUTE: GET /hello
-$app->get('/hello', function (Request $request, Response $response, $args) {
+$app->get('/films', [FilmsController::class,'processAllFilms']);
+$app->post('/films', [FilmsController::class, 'processCreateFilm']); 
+$app->put('/films', [FilmsController::class, 'processFilmUpdate']);
+$app->delete('/films', [FilmsController::class, 'processDeleteFilm']);
+$app->get('/films/{film_id}', [FilmsController::class,'processGetFilmById']);
 
-    $response->getBody()->write("Reporting! Hello there!");            
-    return $response;
-});
+$app->get('/actors', [ActorsController::class,'processAllActors']);
+$app->get('/actors/{actor_id}/films', [ActorsController::class,'processActorFilmsById']);
+$app->post('/actors', [ActorsController::class, 'processCreateActors']);
+
+
+$app->get('/customers', [CustomersController::class,'processAllCustomers']);
+$app->get('/customers/{customer_id}/films', [CustomersController::class,'processGetCustomersById']);
+$app->put('/customers', [CustomersController::class, 'processCustomersUpdate']);
+$app->delete('/customers/{customer_id}', [CustomersController::class, 'processDeleteCustomers']);
+
+
+$app->get('/categories/{category_id}/films', [FilmsController::class, 'processGetCategoryFilm']);
+
+

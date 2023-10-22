@@ -82,4 +82,35 @@ class Input
         $keys = array_keys($input);
         return array_keys($keys) !== $keys;
     }
+
+    public static function isInArray($value, $array)
+    {
+        $items = explode(',', $value);
+        foreach ($items as $item) {
+            $items = strtolower(trim($item));
+            if (!in_array($item, $array)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static function isOnlyAlpha($value)
+    {
+        $value = preg_replace('/[^a-zA-Z]/', '', $value); // remove non-letter characters
+        if (ctype_alpha($value)) {
+            return true;
+        }
+        return false;
+    }
+
+    public static function isInDecimal($value)
+    {
+        $value = strval($value);
+        if (preg_match('/^\d+(\.\d{1,2}0*)?$/', $value)) {
+            return true;
+        }
+        return false;
+    }
+
 }
