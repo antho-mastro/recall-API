@@ -12,7 +12,7 @@ class ElectricVehiclesModel extends BaseModel
         parent::__construct();
     }
 
-    public function getAll(){
+    public function getAllEvs(){
         $sql = "SELECT * FROM electric_vehicles";
         return $this->paginate($sql);
     }
