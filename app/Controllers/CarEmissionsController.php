@@ -20,7 +20,7 @@ class CarEmissionsController extends BaseController
 
     public function __construct()
     {
-        $this->emissions_model_model = new CarEmissionsModel();
+        $this->emissions_model = new CarEmissionsModel();
     }
 
     public function processAllEmissions(Request $request, Response $response)

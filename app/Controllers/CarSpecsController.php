@@ -13,7 +13,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 
-class FilmsController extends BaseController
+class CarSpecsController extends BaseController
 {
     private $specs_model = null;
 
