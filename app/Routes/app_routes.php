@@ -6,11 +6,14 @@ use Slim\Exception\HttpNotFoundException;
 use Vanier\Api\Controllers\AboutController;
 use Vanier\Api\Controllers\CustomersController;
 use Vanier\Api\Controllers\ActorsController;
+use Vanier\Api\Controllers\CountriesController;
 use Vanier\Api\Controllers\FilmsController;
 
 global $app;
 
 $app->get('/', [AboutController::class, 'handleAboutApi']); 
+
+$app->get('/', [CountriesController::class, 'handleGetCountries']);
 
 $app->get('/films', [FilmsController::class,'processAllFilms']);
 $app->post('/films', [FilmsController::class, 'processCreateFilm']); 
