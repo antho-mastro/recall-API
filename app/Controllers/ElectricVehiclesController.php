@@ -13,7 +13,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Vanier\Api\Models\BaseModel;
 
-class CountriesController extends BaseController{
+class ElectricVehiclesController extends BaseController{
 
 private $electric_vehicle_model = null;
 

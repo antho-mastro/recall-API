@@ -13,7 +13,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Vanier\Api\Models\BaseModel;
 
-class CountriesController extends BaseController{
+class RecallCarsController extends BaseController{
 
 private $recall_model = null;
 
