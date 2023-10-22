@@ -40,14 +40,14 @@ private $countries_model = null;
         }
         */
     
-        $films = $this->countries_model->getAllCountries($filters);
+        $countries = $this->countries_model->getAllCountries($filters);
     
         //$shows = $this->getTVMazeShows();
     
         
         
     
-        return $this->prepareOkResponse($response, (array)$films);
+        return $this->prepareOkResponse($response, (array)$countries);
     }
 
 
