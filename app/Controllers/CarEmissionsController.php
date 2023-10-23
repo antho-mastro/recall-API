@@ -33,7 +33,7 @@ class CarEmissionsController extends BaseController
         if (isset($filters['rating'])) {
             $filterOptions['rating'] = $filters['rating'];
         }*/
-        $emissions = $this->emissions_model->getAll($filters);
+        $emissions = $this->emissions_model->getAllEmissions($filters);
         return $this->prepareOkResponse($response, $emissions);
     }
 
@@ -47,7 +47,7 @@ class CarEmissionsController extends BaseController
         }
 
         foreach ($emission_data as $emission) {
-            $this->validateEmissionsData($request, $emission);
+            $this->validateCarEmissionsData($request, $emission);
             $this->emissions_model->EmissionsCreate($emission);
         }
 
@@ -74,12 +74,12 @@ class CarEmissionsController extends BaseController
         }
 
         foreach ($emissionData as $emissionDetails) {
-            $this->validateEmissionsData($request, $emissionDetails);
+            $this->validateCarEmissionsData($request, $emissionDetails);
 
             $emissionId = $emissionDetails['CarEmissionID'];
             unset($emissionDetails['CarEmissionID']);
 
-            $this->emissions_model->EmissionUpdateUpdate($emissionDetails, ["film_id" => $emissionId]);
+            $this->emissions_model->EmissionUpdate($emissionDetails, ["film_id" => $emissionId]);
         }
 
         $responseData = [
