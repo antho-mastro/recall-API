@@ -24,7 +24,7 @@ $errorMiddleware->getDefaultErrorHandler()->forceContentType(APP_MEDIA_TYPE_JSON
 
 // TODO: change the name of the subdirectory here.
 // You also need to change it in .htaccess
-$app->setBasePath("/films-api");
+$app->setBasePath("/recall-api");
 
 
 //$app->add("/films-api/films");
