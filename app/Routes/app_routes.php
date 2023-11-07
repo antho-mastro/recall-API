@@ -16,7 +16,7 @@ use Vanier\Api\Controllers\FilmsController;
 use Vanier\Api\Controllers\RecallCarsController;
 
 global $app;
-
+/*
 $app->get('/', [AboutController::class, 'handleAboutApi']); 
 
 //!App Route for carEmissions
@@ -27,31 +27,15 @@ $app->get('/', [CarSpecsController::class, 'processAllSpecs']);
 $app->get('/', [ChargingSationsController::class, 'handleGetChargingStations']);
 //!App Route for charging sessions
 $app->get('/', [ChargingSessionsController::class, 'handleGetChargingSessions']);
+*/
 //!App Route for countries
-$app->get('/', [CountriesController::class, 'handleGetCountries']);
+$app->get('/countries', [CountriesController::class, 'handleGetCountries']);
 //!App Route for electric vehicles
+/*
 $app->get('/', [ElectricVehiclesController::class, 'handleGetEvs']);
 //!App Route for recallCars
 $app->get('/', [RecallCarsController::class, 'handleGetRecallCars']);
+*/
 
-
-$app->get('/films', [FilmsController::class,'processAllFilms']);
-$app->post('/films', [FilmsController::class, 'processCreateFilm']); 
-$app->put('/films', [FilmsController::class, 'processFilmUpdate']);
-$app->delete('/films', [FilmsController::class, 'processDeleteFilm']);
-$app->get('/films/{film_id}', [FilmsController::class,'processGetFilmById']);
-
-$app->get('/actors', [ActorsController::class,'processAllActors']);
-$app->get('/actors/{actor_id}/films', [ActorsController::class,'processActorFilmsById']);
-$app->post('/actors', [ActorsController::class, 'processCreateActors']);
-
-
-$app->get('/customers', [CustomersController::class,'processAllCustomers']);
-$app->get('/customers/{customer_id}/films', [CustomersController::class,'processGetCustomersById']);
-$app->put('/customers', [CustomersController::class, 'processCustomersUpdate']);
-$app->delete('/customers/{customer_id}', [CustomersController::class, 'processDeleteCustomers']);
-
-
-$app->get('/categories/{category_id}/films', [FilmsController::class, 'processGetCategoryFilm']);
 
 
