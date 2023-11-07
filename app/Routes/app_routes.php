@@ -16,26 +16,25 @@ use Vanier\Api\Controllers\FilmsController;
 use Vanier\Api\Controllers\RecallCarsController;
 
 global $app;
-/*
+
 $app->get('/', [AboutController::class, 'handleAboutApi']); 
 
 //!App Route for carEmissions
-$app->get('/', [CarEmissionsController::class, 'processAllEmissions']);
+$app->get('/emissions', [CarEmissionsController::class, 'processAllEmissions']);
 //!App Route for carspecs
-$app->get('/', [CarSpecsController::class, 'processAllSpecs']);
+$app->get('/specs', [CarSpecsController::class, 'processAllSpecs']);
 //!App Route for charging stations
-$app->get('/', [ChargingSationsController::class, 'handleGetChargingStations']);
+$app->get('/stations', [ChargingSationsController::class, 'handleGetChargingStations']);
 //!App Route for charging sessions
-$app->get('/', [ChargingSessionsController::class, 'handleGetChargingSessions']);
-*/
+$app->get('/sessions', [ChargingSessionsController::class, 'handleGetChargingSessions']);
 //!App Route for countries
 $app->get('/countries', [CountriesController::class, 'handleGetCountries']);
 //!App Route for electric vehicles
-/*
-$app->get('/', [ElectricVehiclesController::class, 'handleGetEvs']);
+
+$app->get('/evs', [ElectricVehiclesController::class, 'handleGetEvs']);
 //!App Route for recallCars
-$app->get('/', [RecallCarsController::class, 'handleGetRecallCars']);
-*/
+$app->get('/recalls', [RecallCarsController::class, 'handleGetRecallCars']);
+
 
 
 
