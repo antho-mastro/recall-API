@@ -26,28 +26,25 @@ private $countries_model = null;
 
         $filters = $request->getQueryParams();
     
-        /*
-        $validation_response = $this->isValidPagingParams($filters);
-        if($validation_response === true){
-    
-            $this->countries_model->setPaginationOptions(
-                $filters['page'],
-                $filters['page_size']
-            );
-        
-        }else{
-            //httpbadrequestexception
-        }
-        */
-    
         $countries = $this->countries_model->getAllCountries($filters);
-    
-        //$shows = $this->getTVMazeShows();
-    
         
-        
-    
         return $this->prepareOkResponse($response, (array)$countries);
+    }
+
+    public function processCreateCountry(Request $request, Response $response)
+    {
+
+        $emission_data = $request->getParsedBody();
+        if (empty($emission_data) || !is_array($emission_data)) {
+            throw new HttpBadRequestException($request, "Invalid/malformed data...BAD REQUEST!");
+        }
+
+        foreach ($emission_data as $emission) {
+            $this->countries_model->countryCreate($emission);
+        }
+
+        $response_data = array("code" => HttpCodes::STATUS_CREATED, "message" => "Country successfully created!");
+        return $this->prepareOkResponse($response, $response_data, HttpCodes::STATUS_CREATED);
     }
 
 

@@ -123,4 +123,36 @@ class BaseController
             }
         }*/
     }
+
+    public function validateCountriesData($request, array $emission)
+    {
+
+        /*$validation = new Input();
+
+        foreach ($emission as $key => $value) {
+            switch ($key) {
+                case "title":
+                    if (!$validation->isOnlyAlpha($value) || empty($value)) {
+                        throw new HttpBadRequestException($request, "Invalid title. BAD REQUEST!");
+                    }
+                    break;
+                case "release_year":
+                case "language_id":
+                case "rental_duration":
+                case "length":
+                    if (!$validation->isInt($value) || empty($value)) {
+                        throw new HttpBadRequestException($request, "release_year or language_id or rental_duration or length is wrong. BAD REQUEST!");
+                    }
+                    break;
+                case "rental_rate":
+                case "replacement_cost":
+                    if (!$validation->isInDecimal($value) || empty($value)) {
+                        throw new HttpBadRequestException($request, "rental_rate or replacement_cost is wrong. BAD REQUEST!");
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }*/
+    }
 }

@@ -26,14 +26,7 @@ private $electric_vehicle_model = null;
 
         $filters = $request->getQueryParams();
     
-    
-    
         $evs = $this->electric_vehicle_model->getAllEvs($filters);
-    
-        //$shows = $this->getTVMazeShows();
-    
-        
-        
     
         return $this->prepareOkResponse($response, (array)$evs);
     }

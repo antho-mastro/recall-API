@@ -32,4 +32,27 @@ private $charging_sessions_model = null;
     
         return $this->prepareOkResponse($response, (array)$session);
     }
+
+    public function processDeleteSessions(Request $request, Response $response)
+    {
+        $specs_data = $request->getParsedBody();
+        if (empty($specs_data) || !is_array($specs_data)) {
+            throw new HttpBadRequestException($request, 'Invalid data provided. Bad Request!');
+        }
+
+        foreach ($specs_data as $data) {
+            if (!$this->charging_sessions_model->getSessionById($data)) {
+                throw new HttpBadRequestException($request, "Station id provided does not exist. BAD REQUEST!");
+            }
+            $this->charging_sessions_model->deleteSession($data);
+        }
+
+        $responseData = [
+            'status_code' => HttpCodes::STATUS_CREATED,
+            'message'     => 'Data successfully deleted!',
+        ];
+
+
+        return $this->prepareOkResponse($response, $responseData, HttpCodes::STATUS_CREATED);
+    }
 }

@@ -33,4 +33,27 @@ private $recall_model = null;
         return $this->prepareOkResponse($response, (array)$recallCars);
     }
 
+    public function processDeleteRecall(Request $request, Response $response)
+    {
+        $emissions_data = $request->getParsedBody();
+        if (empty($emissions_data) || !is_array($emissions_data)) {
+            throw new HttpBadRequestException($request, 'Invalid data provided. Bad Request!');
+        }
+
+        foreach ($emissions_data as $data) {
+            if (!$this->recall_model->getRecallById($data)) {
+                throw new HttpBadRequestException($request, "Emission id provided does not exist. BAD REQUEST!");
+            }
+            $this->recall_model->deleteRecall($data);
+        }
+
+        $responseData = [
+            'status_code' => HttpCodes::STATUS_CREATED,
+            'message'     => 'Data successfully deleted!',
+        ];
+
+
+        return $this->prepareOkResponse($response, $responseData, HttpCodes::STATUS_CREATED);
+    }
+
 }
