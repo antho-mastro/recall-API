@@ -35,11 +35,12 @@ private $countries_model = null;
     {
 
         $emission_data = $request->getParsedBody();
-        if (empty($emission_data) || !is_array($emission_data)) {
+        if (empty($emission_data) && !is_array($emission_data)) {
             throw new HttpBadRequestException($request, "Invalid/malformed data...BAD REQUEST!");
         }
 
         foreach ($emission_data as $emission) {
+            $this->validateCountriesData($request, $emission);
             $this->countries_model->countryCreate($emission);
         }
 

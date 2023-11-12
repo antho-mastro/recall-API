@@ -55,4 +55,21 @@ private $charging_sessions_model = null;
 
         return $this->prepareOkResponse($response, $responseData, HttpCodes::STATUS_CREATED);
     }
+
+    public function processCreateSession(Request $request, Response $response)
+    {
+
+        $emission_data = $request->getParsedBody();
+        if (empty($emission_data) && !is_array($emission_data)) {
+            throw new HttpBadRequestException($request, "Invalid/malformed data...BAD REQUEST!");
+        }
+
+        foreach ($emission_data as $emission) {
+            $this->validateSessionsData($request, $emission);
+            $this->charging_sessions_model->sessionsCreate($emission);
+        }
+
+        $response_data = array("code" => HttpCodes::STATUS_CREATED, "message" => "Country successfully created!");
+        return $this->prepareOkResponse($response, $response_data, HttpCodes::STATUS_CREATED);
+    }
 }

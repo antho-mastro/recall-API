@@ -31,4 +31,21 @@ private $electric_vehicle_model = null;
         return $this->prepareOkResponse($response, (array)$evs);
     }
 
+    public function processCreateEvs(Request $request, Response $response)
+    {
+
+        $emission_data = $request->getParsedBody();
+        if (empty($emission_data) && !is_array($emission_data)) {
+            throw new HttpBadRequestException($request, "Invalid/malformed data...BAD REQUEST!");
+        }
+
+        foreach ($emission_data as $emission) {
+            $this->validateEvsData($request, $emission);
+            $this->electric_vehicle_model->VehicleCreate($emission);
+        }
+
+        $response_data = array("code" => HttpCodes::STATUS_CREATED, "message" => "Vehicle successfully created!");
+        return $this->prepareOkResponse($response, $response_data, HttpCodes::STATUS_CREATED);
+    }
+
 }

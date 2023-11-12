@@ -30,28 +30,21 @@ private $charge_stations_model = null;
         return $this->prepareOkResponse($response, (array)$station);
     }
 
-    public function processDeleteStations(Request $request, Response $response)
+    public function processCreateStation(Request $request, Response $response)
     {
-        $specs_data = $request->getParsedBody();
-        if (empty($specs_data) || !is_array($specs_data)) {
-            throw new HttpBadRequestException($request, 'Invalid data provided. Bad Request!');
+
+        $emission_data = $request->getParsedBody();
+        if (empty($emission_data) && !is_array($emission_data)) {
+            throw new HttpBadRequestException($request, "Invalid/malformed data...BAD REQUEST!");
         }
 
-        foreach ($specs_data as $data) {
-            if (!$this->charge_stations_model->getStationById($data)) {
-                throw new HttpBadRequestException($request, "Station id provided does not exist. BAD REQUEST!");
-            }
-            $this->charge_stations_model->deleteStation($data);
+        foreach ($emission_data as $emission) {
+            $this->validateStationsData($request, $emission);
+            $this->charge_stations_model->stationsCreate($emission);
         }
 
-        $responseData = [
-            'status_code' => HttpCodes::STATUS_CREATED,
-            'message'     => 'Data successfully deleted!',
-        ];
-
-
-        return $this->prepareOkResponse($response, $responseData, HttpCodes::STATUS_CREATED);
+        $response_data = array("code" => HttpCodes::STATUS_CREATED, "message" => "Country successfully created!");
+        return $this->prepareOkResponse($response, $response_data, HttpCodes::STATUS_CREATED);
     }
-
 
 }

@@ -111,48 +111,106 @@ class BaseController
         }*/
     }
 
-    public function validateStationsData(Request $request, array $station)
+    public function validateStationsData(Request $request, array $emission)
     {
-        /*$validation = new Input();
-
-        foreach ($station as $key => $value) {
-            if ($key == "first_name" || $key == "last_name") {
-                if (!$validation->isAlpha($value)) {
-                    throw new HttpBadRequestException($request, "first name or last name is wrong. BAD REQUEST!");
-                }
+        $validation = new Input();
+        foreach ($emission as $key => $value) {
+            switch ($key) {
+                case "StationID":
+                    if (!$validation->isAlpha($value)) {
+                        throw new HttpBadRequestException($request, "StationID is not to be declared! BAD REQUEST!");
+                    }
+                    break;
+                case "Name":
+                case "Location":
+                case "OperatorName":
+                    if (!$validation->isOnlyAlpha($value) && empty($value)) {
+                        throw new HttpBadRequestException($request, "Name, location and operator invalid!");
+                    }
+                    break;
+                    case "NumberOfPorts":
+                    if (!$validation->isOnlyAlpha($value) && empty($value)) {
+                        throw new HttpBadRequestException($request, "Number of ports invalid!");
+                    }
+                default:
+                    break;
             }
-        }*/
+        }
     }
 
     public function validateCountriesData($request, array $emission)
     {
-
-        /*$validation = new Input();
-
+        $validation = new Input();
         foreach ($emission as $key => $value) {
             switch ($key) {
-                case "title":
-                    if (!$validation->isOnlyAlpha($value) || empty($value)) {
-                        throw new HttpBadRequestException($request, "Invalid title. BAD REQUEST!");
+                case "CountryID":
+                    if (!$validation->isAlpha($value)) {
+                        throw new HttpBadRequestException($request, "CountryID is not to be declared! BAD REQUEST!");
                     }
                     break;
-                case "release_year":
-                case "language_id":
-                case "rental_duration":
-                case "length":
-                    if (!$validation->isInt($value) || empty($value)) {
-                        throw new HttpBadRequestException($request, "release_year or language_id or rental_duration or length is wrong. BAD REQUEST!");
-                    }
-                    break;
-                case "rental_rate":
-                case "replacement_cost":
-                    if (!$validation->isInDecimal($value) || empty($value)) {
-                        throw new HttpBadRequestException($request, "rental_rate or replacement_cost is wrong. BAD REQUEST!");
+                case "City":
+                case "PostalCode":
+                    if (!$validation->isOnlyAlpha($value) && empty($value)) {
+                        throw new HttpBadRequestException($request, "City and postal codes invalid!");
                     }
                     break;
                 default:
                     break;
             }
-        }*/
+        }
+    }
+
+    public function validateEvsData($request, array $emission)
+    {
+        $validation = new Input();
+        foreach ($emission as $key => $value) {
+            switch ($key) {
+                case "VehicleID":
+                    if (!$validation->isAlpha($value)) {
+                        throw new HttpBadRequestException($request, "EV ID is not to be declared! BAD REQUEST!");
+                    }
+                    break;
+                case "VIN":
+                case "Maker":
+                case "Model":
+                    if (!$validation->isAlpha($value) && empty($value)) {
+                        throw new HttpBadRequestException($request, "VIN, Maker and Model invalid!");
+                    }
+                    break;
+                case "Year":
+                case "Price":
+                    if (!$validation->isAlpha($value) && empty($value)) {
+                        throw new HttpBadRequestException($request, "Year and price invalid!");
+                    }
+                default:
+                    break;
+            }
+        }
+    }
+
+    public function validateSessionsData($request, array $emission)
+    {
+        $validation = new Input();
+        foreach ($emission as $key => $value) {
+            switch ($key) {
+                case "ChargingSessionID":
+                    if (!$validation->isAlpha($value)) {
+                        throw new HttpBadRequestException($request, "Session ID is not to be declared! BAD REQUEST!");
+                    }
+                    break;
+                case "ChargingStartTime":
+                case "ChargingEndTime":
+                    if (!$validation->isAlpha($value) && empty($value)) {
+                        throw new HttpBadRequestException($request, "Timeframes invalid!");
+                    }
+                    break;
+                case "EnergyConsumed":
+                    if (!$validation->isAlpha($value) && empty($value)) {
+                        throw new HttpBadRequestException($request, "Energy entered invalid!");
+                    }
+                default:
+                    break;
+            }
+        }
     }
 }
