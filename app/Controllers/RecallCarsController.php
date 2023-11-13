@@ -56,4 +56,29 @@ private $recall_model = null;
         return $this->prepareOkResponse($response, $responseData, HttpCodes::STATUS_CREATED);
     }
 
+    public function processUpdateRecall(Request $request, Response $response)
+    {
+        $filmData = $request->getParsedBody();
+
+        if (empty($filmData) || !is_array($filmData)) {
+            throw new HttpBadRequestException($request, 'Invalid data provided. Bad Request!');
+        }
+
+        foreach ($filmData as $filmDetails) {
+            $this->validateRecallData($request, $filmDetails);
+
+            $filmId = $filmDetails['RecallID'];
+            unset($filmDetails['RecallID']);
+
+            $this->recall_model->RecallUpdate($filmDetails, ["RecallID" => $filmId]);
+        }
+
+        $responseData = [
+            'status_code' => HttpCodes::STATUS_CREATED,
+            'message'     => 'Data successfully updated!',
+        ];
+
+        return $this->prepareOkResponse($response, $responseData, HttpCodes::STATUS_CREATED);
+    }
+
 }

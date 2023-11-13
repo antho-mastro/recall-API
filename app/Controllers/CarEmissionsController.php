@@ -79,7 +79,7 @@ class CarEmissionsController extends BaseController
             $emissionId = $emissionDetails['CarEmissionID'];
             unset($emissionDetails['CarEmissionID']);
 
-            $this->emissions_model->EmissionUpdate($emissionDetails, ["film_id" => $emissionId]);
+            $this->emissions_model->EmissionUpdate($emissionDetails, ["CarEmissionID" => $emissionId]);
         }
 
         $responseData = [
@@ -112,12 +112,4 @@ class CarEmissionsController extends BaseController
 
         return $this->prepareOkResponse($response, $responseData, HttpCodes::STATUS_CREATED);
     }
-
-
-    /*public function processGetCategoryFilm(Request $request, Response $response, array $uri_args)
-    {
-        $category_id = $uri_args["category_id"];
-        $data = $this->films_model->getFilmsByCategory($category_id);
-        return $this->prepareOkResponse($response, $data);
-    }*/
 }

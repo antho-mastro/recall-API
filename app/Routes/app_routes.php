@@ -19,6 +19,7 @@ $app->get('/', [AboutController::class, 'handleAboutApi']);
 //!App Route for carEmissions
 $app->get('/emissions', [CarEmissionsController::class, 'processAllEmissions']);
 $app->delete('/emissions', [CarEmissionsController::class, 'processDeleteEmission']);
+$app->put('/emissions', [CarEmissionsController::class, 'processEmissionUpdate']);
 
 //!App Route for carspecs
 $app->get('/specs', [CarSpecsController::class, 'processAllSpecs']);
@@ -27,6 +28,7 @@ $app->delete('/specs', [CarSpecsController::class, 'processDeleteSpec']);
 //!App Route for charging stations
 $app->get('/stations', [ChargeStationsController::class, 'handleGetChargeStations']);
 $app->post('/stations', [ChargeStationsController::class, 'processCreateStation']);
+$app->put('/stations', [ChargeStationsController::class, 'processUpdateStation']);
 
 //!App Route for charging sessions
 $app->get('/sessions', [ChargingSessionsController::class, 'handleGetChargingSessions']);
@@ -40,10 +42,12 @@ $app->post('/countries', [CountriesController::class, 'processCreateCountry']);
 //!App Route for electric vehicles
 $app->get('/evs', [ElectricVehiclesController::class, 'handleGetEvs']);
 $app->post('/evs', [ElectricVehiclesController::class, 'processCreateEvs']);
+$app->put('/evs', [ElectricVehiclesController::class, 'processEvsUpdate']);
 
 //!App Route for recallCars
 $app->get('/recalls', [RecallCarsController::class, 'handleGetRecallCars']);
 $app->delete('/recalls', [RecallCarsController::class, 'processDeleteRecall']);
+$app->put('/recalls', [RecallCarsController::class, 'processUpdateRecall']);
 
 
 

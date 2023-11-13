@@ -48,5 +48,4 @@ private $countries_model = null;
         return $this->prepareOkResponse($response, $response_data, HttpCodes::STATUS_CREATED);
     }
 
-
 }

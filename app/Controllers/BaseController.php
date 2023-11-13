@@ -44,34 +44,20 @@ class BaseController
 
     public function validateCarEmissionsData($request, array $emission)
     {
-
-        /*$validation = new Input();
-
+        $validation = new Input();
         foreach ($emission as $key => $value) {
             switch ($key) {
-                case "title":
-                    if (!$validation->isOnlyAlpha($value) || empty($value)) {
-                        throw new HttpBadRequestException($request, "Invalid title. BAD REQUEST!");
-                    }
-                    break;
-                case "release_year":
-                case "language_id":
-                case "rental_duration":
-                case "length":
-                    if (!$validation->isInt($value) || empty($value)) {
-                        throw new HttpBadRequestException($request, "release_year or language_id or rental_duration or length is wrong. BAD REQUEST!");
-                    }
-                    break;
-                case "rental_rate":
-                case "replacement_cost":
-                    if (!$validation->isInDecimal($value) || empty($value)) {
-                        throw new HttpBadRequestException($request, "rental_rate or replacement_cost is wrong. BAD REQUEST!");
+                case "CO2Emission":
+                case "NOxEmission":
+                case "ParticularEmission":
+                    if (!$validation->isOnlyAlpha($value) && empty($value)) {
+                        throw new HttpBadRequestException($request, "Emissions data invalid!");
                     }
                     break;
                 default:
                     break;
             }
-        }*/
+        }
     }
 
     public function validateSpecsData($request, array $specs)
@@ -116,11 +102,6 @@ class BaseController
         $validation = new Input();
         foreach ($emission as $key => $value) {
             switch ($key) {
-                case "StationID":
-                    if (!$validation->isAlpha($value)) {
-                        throw new HttpBadRequestException($request, "StationID is not to be declared! BAD REQUEST!");
-                    }
-                    break;
                 case "Name":
                 case "Location":
                 case "OperatorName":
@@ -165,11 +146,6 @@ class BaseController
         $validation = new Input();
         foreach ($emission as $key => $value) {
             switch ($key) {
-                case "VehicleID":
-                    if (!$validation->isAlpha($value)) {
-                        throw new HttpBadRequestException($request, "EV ID is not to be declared! BAD REQUEST!");
-                    }
-                    break;
                 case "VIN":
                 case "Maker":
                 case "Model":
@@ -207,6 +183,28 @@ class BaseController
                 case "EnergyConsumed":
                     if (!$validation->isAlpha($value) && empty($value)) {
                         throw new HttpBadRequestException($request, "Energy entered invalid!");
+                    }
+                default:
+                    break;
+            }
+        }
+    }
+
+    public function validateRecallData($request, array $emission)
+    {
+        $validation = new Input();
+        foreach ($emission as $key => $value) {
+            switch ($key) {
+                case "RecallNumber":
+                case "MakeModel":
+                    if (!$validation->isAlpha($value) && empty($value)) {
+                        throw new HttpBadRequestException($request, "VIN, Maker and Model invalid!");
+                    }
+                    break;
+                case "RecallYear":
+                case "RecallDate":
+                    if (!$validation->isAlpha($value) && empty($value)) {
+                        throw new HttpBadRequestException($request, "Year and price invalid!");
                     }
                 default:
                     break;

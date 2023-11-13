@@ -48,4 +48,29 @@ private $electric_vehicle_model = null;
         return $this->prepareOkResponse($response, $response_data, HttpCodes::STATUS_CREATED);
     }
 
+    public function processEvsUpdate(Request $request, Response $response)
+    {
+        $filmData = $request->getParsedBody();
+
+        if (empty($filmData) || !is_array($filmData)) {
+            throw new HttpBadRequestException($request, 'Invalid data provided. Bad Request!');
+        }
+
+        foreach ($filmData as $filmDetails) {
+            $this->validateEvsData($request, $filmDetails);
+
+            $filmId = $filmDetails['VehicleID'];
+            unset($filmDetails['VehicleID']);
+
+            $this->electric_vehicle_model->VehicleUpdate($filmDetails, ["VehicleID" => $filmId]);
+        }
+
+        $responseData = [
+            'status_code' => HttpCodes::STATUS_CREATED,
+            'message'     => 'Data successfully updated!',
+        ];
+
+        return $this->prepareOkResponse($response, $responseData, HttpCodes::STATUS_CREATED);
+    }
+
 }
