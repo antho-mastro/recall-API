@@ -73,4 +73,24 @@ private $electric_vehicle_model = null;
         return $this->prepareOkResponse($response, $responseData, HttpCodes::STATUS_CREATED);
     }
 
+    public function processGetVehiclesById(Request $request, Response $response, array $uri_args)
+    {
+        $customer_id = $uri_args["VehicleID"];
+
+
+        if (empty($customer_id) || is_null($customer_id)) {
+            throw new HttpBadRequestException($request, "Invalid/malformed data...BAD REQUEST!");
+        }
+
+
+        if (!$this->electric_vehicle_model->getVehicleById($customer_id)) {
+            throw new HttpBadRequestException($request, "Vehicle id provided does not exist. BAD REQUEST!");
+        }
+
+        $data = $this->electric_vehicle_model->getVehicleById($customer_id);
+
+
+        return $this->prepareOkResponse($response, $data);
+    }
+
 }

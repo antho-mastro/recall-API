@@ -72,4 +72,24 @@ private $charge_stations_model = null;
         return $this->prepareOkResponse($response, $responseData, HttpCodes::STATUS_CREATED);
     }
 
+    public function processGetStationsById(Request $request, Response $response, array $uri_args)
+    {
+        $customer_id = $uri_args["StationID"];
+
+
+        if (empty($customer_id) || is_null($customer_id)) {
+            throw new HttpBadRequestException($request, "Invalid/malformed data...BAD REQUEST!");
+        }
+
+
+        if (!$this->charge_stations_model->getStationById($customer_id)) {
+            throw new HttpBadRequestException($request, "Station id provided does not exist. BAD REQUEST!");
+        }
+
+        $data = $this->charge_stations_model->getStationById($customer_id);
+
+
+        return $this->prepareOkResponse($response, $data);
+    }
+
 }

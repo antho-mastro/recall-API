@@ -81,4 +81,24 @@ private $recall_model = null;
         return $this->prepareOkResponse($response, $responseData, HttpCodes::STATUS_CREATED);
     }
 
+    public function processGetRecallsById(Request $request, Response $response, array $uri_args)
+    {
+        $customer_id = $uri_args["RecallID"];
+
+
+        if (empty($customer_id) || is_null($customer_id)) {
+            throw new HttpBadRequestException($request, "Invalid/malformed data...BAD REQUEST!");
+        }
+
+
+        if (!$this->recall_model->getRecallById($customer_id)) {
+            throw new HttpBadRequestException($request, "Recall id provided does not exist. BAD REQUEST!");
+        }
+
+        $data = $this->recall_model->getRecallById($customer_id);
+
+
+        return $this->prepareOkResponse($response, $data);
+    }
+
 }

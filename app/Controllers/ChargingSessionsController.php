@@ -72,4 +72,24 @@ private $charging_sessions_model = null;
         $response_data = array("code" => HttpCodes::STATUS_CREATED, "message" => "Country successfully created!");
         return $this->prepareOkResponse($response, $response_data, HttpCodes::STATUS_CREATED);
     }
+
+    public function processGetSessionsById(Request $request, Response $response, array $uri_args)
+    {
+        $customer_id = $uri_args["ChargingSessionID"];
+
+
+        if (empty($customer_id) || is_null($customer_id)) {
+            throw new HttpBadRequestException($request, "Invalid/malformed data...BAD REQUEST!");
+        }
+
+
+        if (!$this->charging_sessions_model->getSessionById($customer_id)) {
+            throw new HttpBadRequestException($request, "Session id provided does not exist. BAD REQUEST!");
+        }
+
+        $data = $this->charging_sessions_model->getSessionById($customer_id);
+
+
+        return $this->prepareOkResponse($response, $data);
+    }
 }

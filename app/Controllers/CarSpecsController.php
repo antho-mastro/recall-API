@@ -114,11 +114,23 @@ class CarSpecsController extends BaseController
         return $this->prepareOkResponse($response, $responseData, HttpCodes::STATUS_CREATED);
     }
 
-
-    /*public function processGetCategoryFilm(Request $request, Response $response, array $uri_args)
+    public function processGetSpecsById(Request $request, Response $response, array $uri_args)
     {
-        $category_id = $uri_args["category_id"];
-        $data = $this->films_model->getFilmsByCategory($category_id);
+        $customer_id = $uri_args["SpecsID"];
+
+
+        if (empty($customer_id) || is_null($customer_id)) {
+            throw new HttpBadRequestException($request, "Invalid/malformed data...BAD REQUEST!");
+        }
+
+
+        if (!$this->specs_model->getSpecById($customer_id)) {
+            throw new HttpBadRequestException($request, "Spec id provided does not exist. BAD REQUEST!");
+        }
+
+        $data = $this->specs_model->getSpecById($customer_id);
+
+
         return $this->prepareOkResponse($response, $data);
-    }*/
+    }
 }

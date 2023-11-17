@@ -48,4 +48,24 @@ private $countries_model = null;
         return $this->prepareOkResponse($response, $response_data, HttpCodes::STATUS_CREATED);
     }
 
+    public function processGetCountriesById(Request $request, Response $response, array $uri_args)
+    {
+        $customer_id = $uri_args["CountryID"];
+
+
+        if (empty($customer_id) || is_null($customer_id)) {
+            throw new HttpBadRequestException($request, "Invalid/malformed data...BAD REQUEST!");
+        }
+
+
+        if (!$this->countries_model->getCountryById($customer_id)) {
+            throw new HttpBadRequestException($request, "Country id provided does not exist. BAD REQUEST!");
+        }
+
+        $data = $this->countries_model->getCountryById($customer_id);
+
+
+        return $this->prepareOkResponse($response, $data);
+    }
+
 }
