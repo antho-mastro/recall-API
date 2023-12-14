@@ -38,7 +38,7 @@ class ContentNegotiationMiddleware implements MiddlewareInterface{
 
         // If there are no matching types, return a 406 Not Acceptable response
         if (empty($matchingTypes)) {
-            return new Slim\Psr7\Response\Response(406);
+            return new (406);
 
         }
 
