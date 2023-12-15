@@ -7,10 +7,6 @@ use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Server\MiddlewareInterface;
 
-use Vanier\Api\Exceptions\HttpNotAcceptableException;
-
-use Slim\Psr7\Response\Response;
-
 class ContentNegotiationMiddleware implements MiddlewareInterface{
     
     public function process(Request $request, RequestHandler $handler): ResponseInterface
