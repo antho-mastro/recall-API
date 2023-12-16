@@ -19,10 +19,13 @@ class AppLoggingMiddleware implements MiddlewareInterface
 
         $token_payload = $request->getAttribute(APP_JWT_TOKEN_KEY);
         if(!$token_payload){
+            // echo "test"; exit;
+
         }
         else{
             $logging_model = new LoggingModel();
         $request_info = $_SERVER["REMOTE_ADDR"] . ' '. $request->getUri()->getPath();
+        // var_dump($token_payload); exit;
         $logging_model->logUserAction($token_payload, $request_info);
         }
 
